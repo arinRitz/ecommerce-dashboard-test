@@ -1,29 +1,35 @@
+// components/Sidebar.tsx
+'use client'
 import Link from 'next/link'
-import { ChartBarIcon, CubeIcon, PlusCircleIcon } from '@heroicons/react/24/outline'
+import { usePathname } from 'next/navigation'
+import { cn } from '@/lib/utils'
 
-export function Sidebar() {
-  const navigation = [
-    { name: 'Revenue', href: '/dashboard/revenue', icon: ChartBarIcon },
-    { name: 'Inventory', href: '/dashboard/inventory', icon: CubeIcon },
-    { name: 'Add Product', href: '/dashboard/add-item', icon: PlusCircleIcon },
-  ]
+const navItems = [
+  { name: 'Revenue', href: '/dashboard/revenue' },
+  { name: 'Inventory', href: '/dashboard/inventory' },
+  { name: 'Register Product', href: '/dashboard/register' },
+]
+
+export default function Sidebar() {
+  const pathname = usePathname()
 
   return (
-    <div className="w-64 bg-white border-r">
-      <div className="p-4">
-        <nav className="mt-4 space-y-1">
-          {navigation.map((item) => (
-            <Link
-              key={item.name}
-              href={item.href}
-              className="flex items-center px-3 py-2 text-gray-600 rounded-lg hover:bg-gray-100"
-            >
-              <item.icon className="w-5 h-5 mr-3" />
-              {item.name}
-            </Link>
-          ))}
-        </nav>
-      </div>
-    </div>
+    <aside className="w-64 bg-white shadow-md h-full">
+      <div className="p-6 font-bold text-xl">Forsit Admin</div>
+      <nav className="flex flex-col space-y-2 p-4">
+        {navItems.map((item) => (
+          <Link
+            key={item.name}
+            href={item.href}
+            className={cn(
+              'px-4 py-2 rounded hover:bg-blue-100',
+              pathname === item.href ? 'bg-blue-200 font-medium' : ''
+            )}
+          >
+            {item.name}
+          </Link>
+        ))}
+      </nav>
+    </aside>
   )
 }
