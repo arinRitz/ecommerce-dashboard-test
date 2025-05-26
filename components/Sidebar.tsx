@@ -4,29 +4,29 @@ import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { cn } from '@/lib/utils'
 
-const navItems = [
-  { name: 'Revenue', href: '/dashboard/revenue' },
-  { name: 'Inventory', href: '/dashboard/inventory' },
-  { name: 'Register Product', href: '/dashboard/register' },
+const routes = [
+  { label: 'Revenue', path: '/dashboard/revenue' },
+  { label: 'Inventory', path: '/dashboard/inventory' },
+  { label: 'Register Product', path: '/dashboard/register' },
 ]
 
 export default function Sidebar() {
   const pathname = usePathname()
 
   return (
-    <aside className="w-64 bg-white shadow-md h-full">
-      <div className="p-6 font-bold text-xl">Forsit Admin</div>
+    <aside className="w-full md:w-64 bg-white border-r h-screen flex-shrink-0">
+      <div className="p-4 text-xl font-semibold">Forsit</div>
       <nav className="flex flex-col space-y-2 p-4">
-        {navItems.map((item) => (
+        {routes.map(route => (
           <Link
-            key={item.name}
-            href={item.href}
+            key={route.path}
+            href={route.path}
             className={cn(
-              'px-4 py-2 rounded hover:bg-blue-100',
-              pathname === item.href ? 'bg-blue-200 font-medium' : ''
+              'px-4 py-2 rounded hover:bg-gray-100',
+              pathname === route.path && 'bg-blue-100 font-medium'
             )}
           >
-            {item.name}
+            {route.label}
           </Link>
         ))}
       </nav>
